@@ -4,10 +4,9 @@
 :root {
   --bg-dark: #121212;           /* Темный фон */
   --card-bg: rgba(40, 40, 40, 0.4); /* Полупрозрачный фон карточки */
-  --card-hover: rgba(50, 50, 50, 0.6);
   --text-main: #ffffff;         /* Белый текст */
   --text-muted: #a0a0a0;        /* Серый текст */
-  --accent-orange: #ff6b00;     /* Оранжевый акцент (как в Яндексе) */
+  --accent-orange: #ff6b00;     /* Оранжевый акцент */
   --border-glass: rgba(255, 255, 255, 0.1); /* Светлая рамка */
 }
 
@@ -22,9 +21,7 @@ body {
   position: relative;
 }
 
-/* =========================================
-   МАГИЯ ФОНА (размытые пятна)
-   ========================================= */
+/* МАГИЯ ФОНА (размытые пятна) */
 body::before, body::after {
   content: "";
   position: fixed;
@@ -33,21 +30,13 @@ body::before, body::after {
   z-index: -1;
   opacity: 0.6;
 }
-
 body::before {
-  width: 600px;
-  height: 600px;
-  background: #ff6b00;
-  top: -200px;
-  right: -100px;
+  width: 600px; height: 600px;
+  background: #ff6b00; top: -200px; right: -100px;
 }
-
 body::after {
-  width: 500px;
-  height: 500px;
-  background: #6c3ce0;
-  bottom: -150px;
-  left: -100px;
+  width: 500px; height: 500px;
+  background: #6c3ce0; bottom: -150px; left: -100px;
 }
 
 /* --- ШАПКА САЙТА --- */
@@ -82,7 +71,6 @@ body::after {
   flex-direction: column;
   position: relative;
 }
-
 .card:hover {
   transform: translateY(-8px);
   border-color: rgba(255, 255, 255, 0.3);
@@ -110,7 +98,7 @@ body::after {
 }
 .card-body p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; flex-grow: 1; }
 
-/* Кнопка "Читать далее" в стиле таблетки */
+/* Кнопка "Читать далее" */
 .read-more-btn {
   display: block;
   text-align: center;
@@ -130,7 +118,7 @@ body::after {
   border-color: var(--text-main);
 }
 
-/* Выделенная карточка (оранжевая, как в Яндексе) */
+/* Выделенная карточка (Оранжевая) */
 .card.highlight {
   background: linear-gradient(135deg, rgba(255, 107, 0, 0.8), rgba(255, 0, 100, 0.6));
   border: 1px solid rgba(255, 255, 255, 0.4);
@@ -144,6 +132,24 @@ body::after {
   color: var(--text-main);
 }
 
+/* Кнопка "Предложить игру" в шапке */
+.suggest-btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 24px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-glass);
+  border-radius: 20px;
+  color: var(--text-main);
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s;
+}
+.suggest-btn:hover {
+  background: var(--text-main);
+  color: var(--bg-dark);
+}
+
 .footer {
   text-align: center;
   padding: 30px;
@@ -151,7 +157,6 @@ body::after {
   font-size: 0.9rem;
 }
 
-/* --- АДАПТАЦИЯ ПОД МОБИЛЬНЫЕ --- */
 @media (max-width: 768px) {
   .header { padding: 30px 15px 20px; }
   .header h1 { font-size: 2rem; }

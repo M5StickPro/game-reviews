@@ -6,13 +6,29 @@
   <title>Обзор игры</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    .post-container { max-width: 800px; margin: 40px auto; padding: 20px; background: #1a1d29; border-radius: 12px; border: 1px solid #2a2e3d; }
-    .post-container img { width: 100%; border-radius: 8px; margin-bottom: 20px; }
-    .post-container h1 { margin-bottom: 20px; font-size: 2rem; color: #fff; }
+    .post-container { 
+      max-width: 800px; 
+      margin: 40px auto; 
+      padding: 30px; 
+      background: rgba(40, 40, 40, 0.4); 
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 24px; 
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    .post-container img { width: 100%; border-radius: 16px; margin-bottom: 20px; }
+    .post-container h1 { margin-bottom: 20px; font-size: 2.2rem; color: #fff; }
     .post-body { line-height: 1.8; font-size: 1.1rem; color: #ccc; }
     .post-body p { margin-bottom: 15px; }
-    .back-btn { display: inline-block; margin-bottom: 20px; color: #6c3ce0; text-decoration: none; font-weight: bold; }
-    .back-btn:hover { text-decoration: underline; }
+    .back-btn { display: inline-block; margin-bottom: 20px; color: #ff6b00; text-decoration: none; font-weight: bold; transition: 0.3s;}
+    .back-btn:hover { text-decoration: underline; color: #fff; }
+    
+    @media (max-width: 768px) {
+      .post-container { margin: 20px 15px; padding: 20px; }
+      .post-container h1 { font-size: 1.6rem; }
+      .post-body { font-size: 1rem; line-height: 1.6; }
+    }
   </style>
 </head>
 <body>

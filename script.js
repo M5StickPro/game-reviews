@@ -17,25 +17,30 @@ function renderReviews(reviews) {
   container.innerHTML = "";
 
   if (!reviews || reviews.length === 0) {
-    container.innerHTML = "<p style='color: #9a9aad; text-align: center; width: 100%; grid-column: 1 / -1;'>Пока нет статей. Добавь их в Sanity и нажми Publish!</p>";
+    container.innerHTML = "<p style='color: #a0a0a0; text-align: center; width: 100%; grid-column: 1 / -1;'>Пока нет статей. Добавь их в Sanity и нажми Publish!</p>";
     return;
   }
 
   reviews.forEach(r => {
     const card = document.createElement("article");
     card.className = "card";
+    
+    // Если оценка 9 или выше, карточка становится оранжевой (highlight)
+    if (r.rating >= 9) {
+      card.classList.add("highlight");
+    }
+
     const imgSrc = r.imageUrl || 'https://via.placeholder.com/600x400?text=No+Image';
     
-    // Генерируем звезды
     let starsHtml = '';
     if (r.rating) {
       const fullStars = Math.floor(r.rating / 2); 
       for (let i = 0; i < 5; i++) {
         starsHtml += i < fullStars ? '★' : '☆';
       }
-      starsHtml += ` <span style="color:#9a9aad; font-size: 1rem;">(${r.rating}/10)</span>`;
+      starsHtml += ` <span style="color:#a0a0a0; font-size: 1rem;">(${r.rating}/10)</span>`;
     } else {
-      starsHtml = '<span style="color:#9a9aad; font-size: 1rem;">Нет оценки</span>';
+      starsHtml = '<span style="color:#a0a0a0; font-size: 1rem;">Нет оценки</span>';
     }
 
     const textText = r.text || 'Описание скоро появится...';
@@ -44,10 +49,10 @@ function renderReviews(reviews) {
     card.innerHTML = `
       <img src="${imgSrc}" alt="${r.title}">
       <div class="card-body">
-        <div style="color: #ffd700; font-size: 1.5rem; margin-bottom: 8px; letter-spacing: 2px;">${starsHtml}</div>
+        <div class="rating">${starsHtml}</div>
         <h2>${r.title}</h2>
         <p>${textText}</p>
-        <a href="post.html?slug=${postSlug}" style="display:inline-block; margin-top:12px; color:#6c3ce0; text-decoration:none; font-weight:bold; font-size: 1.1rem;">Читать далее →</a>
+        <a href="post.html?slug=${postSlug}" class="read-more-btn">Читать далее</a>
       </div>
     `;
     container.appendChild(card);
