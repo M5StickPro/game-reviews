@@ -1,81 +1,48 @@
-const projectId = 'lvvctfr4';
-const dataset = 'production';
-
-const params = new URLSearchParams(window.location.search);
-const slug = params.get('slug');
-
-if (!slug) {
-  document.getElementById('post-content').innerHTML = '<p style="color:red">Ошибка: Статья не найдена.</p>';
-} else {
-  const query = encodeURIComponent(`*[_type == "post" && slug.current == "${slug}"][0]{
-    title,
-    "imageUrl": mainImage.asset->url,
-    "body": body,
-    "rating": rating
-  }`);
-
-  const url = `https://${projectId}.api.sanity.io/v2024-01-01/data/query/${dataset}?query=${query}`;
-
-  fetch(url)
-    .then(res => res.json())
-    .then(data => {
-      const post = data.result;
-      if (!post) {
-        document.getElementById('post-content').innerHTML = '<p style="color:red">Статья не найдена.</p>';
-        return;
-      }
-
-      let bodyHtml = '';
-      if (post.body && Array.isArray(post.body)) {
-        post.body.forEach(block => {
-          if (block._type === 'block' && block.children) {
-             const textContent = block.children.map(child => child.text).join('');
-             if (textContent.trim()) bodyHtml += `<p>${textContent}</p>`;
-          }
-        });
-      } else if (post.body) {
-        bodyHtml = `<p>${post.body}</p>`;
-      } else {
-        bodyHtml = '<p>Текст обзора отсутствует.</p>';
-      }
-
-      let starsHtml = '';
-      if (post.rating) {
-        const fullStars = Math.floor(post.rating / 2);
-        for (let i = 0; i < 5; i++) {
-          starsHtml += i < fullStars ? '★' : '☆';
-        }
-        starsHtml += ` <span style="color:#9a9aad; font-size: 1.2rem;">(${post.rating}/10)</span>`;
-      }
-
-      const counterKey = `m5stickpro-site-${slug}`;
-      let views = 0;
-
-      fetch(`https://api.countapi.xyz/hit/m5stickpro-site/${counterKey}`)
-        .then(res => res.json())
-        .then(data => { views = data.value; })
-        .catch(() => { views = 0; })
-        .finally(() => {
-          // Я добавил блок с автором прямо перед закрывающим тегом div (post-body)
-          document.getElementById('post-content').innerHTML = `
-            <a href="index.html" class="back-btn">← Назад к обзорам</a>
-            ${post.imageUrl ? `<img src="${post.imageUrl}" alt="${post.title}">` : ''}
-            <h1>${post.title}</h1>
-            <div style="color: #ffd700; font-size: 1.5rem; margin-bottom: 10px; letter-spacing: 2px;">${starsHtml}</div>
-            <p style="color:#6c3ce0; font-weight:bold; margin-bottom: 20px;">👁 ${views} просмотров</p>
-            
-            <div class="post-body">
-              ${bodyHtml}
-            </div>
-
-            <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #2a2e3d; text-align: center; color: #9a9aad;">
-              Made by <strong style="color: #6c3ce0;">M5StickPro</strong>
-            </div>
-          `;
-        });
-    })
-    .catch(error => {
-      console.error('Ошибка:', error);
-      document.getElementById('post-content').innerHTML = `<p style="color:red">Ошибка загрузки: ${error.message}</p>`;
-    });
+export default {
+  name: 'post',
+  title: 'Обзор игры',
+  type: 'document',
+  fields: [
+    {
+      name: 'title',
+      title: 'Название игры',
+      type: 'string',
+    },
+    {
+      name: 'slug',
+      title: 'Ссылка (Slug)',
+      type: 'slug',
+      options: { source: 'title', maxLength: 96 },
+    },
+    {
+      name: 'mainImage',
+      title: 'Обложка игры',
+      type: 'image',
+      options: { hotspot: true },
+    },
+    {
+      name: 'excerpt',
+      title: 'Краткое описание (для карточки)',
+      type: 'text',
+      rows: 3,
+    },
+    {
+      name: 'rating',
+      title: 'Оценка (от 1 до 10)',
+      type: 'number',
+      validation: Rule => Rule.min(1).max(10)
+    },
+    {
+      name: 'author',
+      title: 'Автор',
+      type: 'reference',
+      to: [{type: 'author'}] // Ссылка на созданного автора
+    },
+    {
+      name: 'body',
+      title: 'Полный текст обзора',
+      type: 'array',
+      of: [{ type: 'block' }],
+    },
+  ],
 }
