@@ -51,7 +51,7 @@ body::after {
 .reviews {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; /* ЭТО ЦЕНТРИРУЕТ КАРТОЧКИ, если их мало */
+  justify-content: center;
   gap: 30px;
   padding: 20px 20px 60px;
   max-width: 1100px;
@@ -72,11 +72,10 @@ body::after {
   flex-direction: column;
   position: relative;
   width: 100%;
-  max-width: 350px; /* Фиксируем максимальную ширину, чтобы они не растягивались */
-  animation: floatShadow 4s infinite alternate; /* Анимация тени */
+  max-width: 350px;
+  animation: floatShadow 4s infinite alternate;
 }
 
-/* АНИМАЦИЯ ПЕРЕЛИВАЮЩЕЙСЯ ТЕНИ */
 @keyframes floatShadow {
   0% { box-shadow: 0 10px 30px rgba(255, 107, 0, 0.2); }
   50% { box-shadow: 0 15px 40px rgba(108, 60, 224, 0.4); }
@@ -84,15 +83,15 @@ body::after {
 }
 
 .card:hover {
-  transform: translateY(-8px) scale(1.02); /* Чуть увеличиваем */
-  border-color: rgba(255, 255, 255, 0.5); /* Более яркая обводка */
-  animation: none; /* Останавливаем анимацию при наведении */
-  box-shadow: 0 20px 50px rgba(255, 107, 0, 0.6), 0 0 20px rgba(255, 255, 255, 0.2); /* Яркая статичная тень */
+  transform: translateY(-8px) scale(1.02);
+  border-color: rgba(255, 255, 255, 0.5);
+  animation: none;
+  box-shadow: 0 20px 50px rgba(255, 107, 0, 0.6), 0 0 20px rgba(255, 255, 255, 0.2);
 }
 
 .card img {
   width: 100%;
-  height: 220px; /* Фиксируем высоту картинки для ровности */
+  height: 220px;
   object-fit: cover;
   display: block;
   mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
@@ -110,7 +109,6 @@ body::after {
 }
 .card-body p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; flex-grow: 1; }
 
-/* Кнопка "Читать далее" */
 .read-more-btn {
   display: block;
   text-align: center;
@@ -125,13 +123,12 @@ body::after {
   transition: all 0.3s ease;
 }
 .read-more-btn:hover {
-  background: var(--accent-orange); /* Делаем кнопку оранжевой при наведении */
+  background: var(--accent-orange);
   color: var(--text-main);
   border-color: var(--accent-orange);
   box-shadow: 0 0 15px rgba(255, 107, 0, 0.5);
 }
 
-/* Выделенная карточка (Оранжевая) */
 .card.highlight {
   background: linear-gradient(135deg, rgba(255, 107, 0, 0.8), rgba(255, 0, 100, 0.6));
   border: 1px solid rgba(255, 255, 255, 0.4);
