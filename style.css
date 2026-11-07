@@ -9,9 +9,7 @@
   --accent-orange: #ff6b00;
   --border-glass: rgba(255, 255, 255, 0.1);
   
-  /* Плавные кривые для анимаций */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -51,14 +49,14 @@ body::after {
 .header h1 { font-size: 2.5rem; margin-bottom: 10px; font-weight: 700; }
 .header p { color: var(--text-muted); font-size: 1.2rem; }
 
-/* --- СЕТКА КАРТОЧЕК --- */
+/* --- СЕТКА КАРТОЧЕК (CSS GRID) --- */
 .reviews {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
+  display: grid;
+  /* На компьютере всегда 4 колонки */
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 24px;
   padding: 20px 20px 60px;
-  max-width: 1100px;
+  max-width: 1400px; /* Сделали чуть шире, чтобы 4 карточки влезали */
   margin: 0 auto;
 }
 
@@ -67,32 +65,28 @@ body::after {
   background: var(--card-bg);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-radius: 24px;
+  border-radius: 20px;
   overflow: hidden;
   border: 1px solid var(--border-glass);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
   position: relative;
-  width: 100%;
-  max-width: 350px;
-  /* Плавный переход для всех свойств */
   transition: transform 0.6s var(--ease-out), 
               border-color 0.6s var(--ease-out), 
               box-shadow 0.6s var(--ease-out);
 }
 
 .card:hover {
-  transform: translateY(-6px); /* Мягкий подъем без сильного увеличения */
+  transform: translateY(-6px);
   border-color: rgba(255, 255, 255, 0.4);
-  /* Красивое мягкое свечение вместо резкой тени */
   box-shadow: 0 15px 40px rgba(255, 107, 0, 0.3), 
               0 0 30px rgba(108, 60, 224, 0.2);
 }
 
 .card img {
   width: 100%;
-  height: 220px;
+  height: 180px; /* Уменьшили высоту картинки, чтобы карточки были компактнее */
   object-fit: cover;
   display: block;
   mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
@@ -101,39 +95,40 @@ body::after {
 }
 
 .card:hover img {
-  transform: scale(1.03); /* Легкий зум самой картинки */
+  transform: scale(1.03);
 }
 
-.card-body { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; z-index: 1; }
-.card-body h2 { font-size: 1.3rem; margin-bottom: 10px; color: var(--text-main); }
+.card-body { padding: 16px; flex-grow: 1; display: flex; flex-direction: column; z-index: 1; }
+.card-body h2 { font-size: 1.15rem; margin-bottom: 8px; color: var(--text-main); line-height: 1.3; }
 .card-body .rating {
   display: inline-block;
   color: #ffd700;
-  font-size: 1.2rem;
-  letter-spacing: 2px;
-  margin-bottom: 12px;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
 }
-.card-body p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; flex-grow: 1; }
+.card-body p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; flex-grow: 1; }
 
 /* Кнопка "Читать далее" */
 .read-more-btn {
   display: block;
   text-align: center;
-  margin-top: 20px;
-  padding: 12px;
+  margin-top: 15px;
+  padding: 10px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--border-glass);
-  border-radius: 12px;
+  border-radius: 10px;
   color: var(--text-main);
   text-decoration: none;
   font-weight: 600;
+  font-size: 0.9rem;
   transition: all 0.4s var(--ease-out);
 }
 .read-more-btn:hover {
   background: var(--accent-orange);
   color: var(--text-main);
   border-color: var(--accent-orange);
-  box-shadow: 0 0 20px rgba(255, 107, 0, 0.4);
+  box-shadow: 0 0 15px rgba(255, 107, 0, 0.4);
 }
 
 /* Выделенная карточка (Оранжевая) */
@@ -157,9 +152,22 @@ body::after {
   font-size: 0.9rem;
 }
 
-@media (max-width: 768px) {
-  .header { padding: 30px 15px 20px; }
+/* =========================================
+   АДАПТАЦИЯ (ЧТОБЫ НЕ ЛОМАЛОСЬ НА МОБИЛКАХ)
+   ========================================= */
+/* На планшетах (3 колонки) */
+@media (max-width: 1200px) {
+  .reviews { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* На маленьких планшетах (2 колонки) */
+@media (max-width: 900px) {
+  .reviews { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* На телефонах (1 колонка) */
+@media (max-width: 600px) {
+  .reviews { grid-template-columns: 1fr; gap: 20px; padding: 10px 15px 40px; }
   .header h1 { font-size: 2rem; }
-  .reviews { padding: 10px 15px 40px; gap: 20px; }
-  .card { max-width: 100%; }
+  .card img { height: 200px; }
 }
