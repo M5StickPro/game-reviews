@@ -25,7 +25,6 @@ function renderReviews(reviews) {
     const card = document.createElement("article");
     card.className = "card";
     
-    // Если оценка 9 или выше, карточка становится оранжевой (highlight)
     if (r.rating >= 9) {
       card.classList.add("highlight");
     }
