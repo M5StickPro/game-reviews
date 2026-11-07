@@ -7,6 +7,7 @@ body {
   min-height: 100vh;
 }
 
+/* --- ШАПКА САЙТА --- */
 .header {
   text-align: center;
   padding: 40px 20px;
@@ -16,8 +17,10 @@ body {
 .header h1 { font-size: 2rem; margin-bottom: 8px; }
 .header p { color: #9a9aad; }
 
+/* --- СЕТКА КАРТОЧЕК --- */
 .reviews {
   display: grid;
+  /* На компьютере будет несколько колонок, на телефоне - одна */
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 24px;
   padding: 40px 20px;
@@ -25,6 +28,7 @@ body {
   margin: 0 auto;
 }
 
+/* --- КАРТОЧКА --- */
 .card {
   background: #1a1d29;
   border-radius: 12px;
@@ -39,12 +43,11 @@ body {
   border-color: #6c3ce0;
 }
 
-/* Вот тут изменения: убираем жесткую высоту */
 .card img {
   width: 100%;
-  height: auto; /* Теперь картинка сохраняет пропорции */
-  max-height: 250px; /* Но не больше 250px в высоту, чтобы не ломать сетку */
-  object-fit: cover; /* Оставляем cover, чтобы не было пустых полос */
+  height: auto;
+  max-height: 250px;
+  object-fit: cover;
   display: block;
   background: #2a2e3d;
 }
@@ -54,7 +57,7 @@ body {
 .card-body .rating {
   display: inline-block;
   background: transparent;
-  color: #ffd700; /* Звезды золотые */
+  color: #ffd700;
   padding: 3px 0;
   font-size: 1.2rem;
   letter-spacing: 2px;
@@ -67,4 +70,27 @@ body {
   padding: 30px;
   color: #6a6a7d;
   font-size: 0.85rem;
+}
+
+/* =========================================
+   АДАПТАЦИЯ ПОД МОБИЛЬНЫЕ ТЕЛЕФОНЫ
+   ========================================= */
+@media (max-width: 768px) {
+  /* Уменьшаем отступы у шапки */
+  .header { padding: 30px 15px; }
+  .header h1 { font-size: 1.6rem; }
+  .header p { font-size: 0.9rem; }
+
+  /* Делаем карточки чуть меньше по бокам */
+  .reviews { padding: 20px 15px; gap: 16px; }
+  
+  /* Уменьшаем шрифт заголовка в карточке */
+  .card-body h2 { font-size: 1.05rem; }
+  .card-body p { font-size: 0.85rem; }
+}
+
+@media (max-width: 480px) {
+  /* Самое маленькое разрешение (старые телефоны) */
+  .header h1 { font-size: 1.4rem; }
+  .reviews { grid-template-columns: 1fr; } /* Строго одна колонка */
 }
