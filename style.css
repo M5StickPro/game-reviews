@@ -23,7 +23,7 @@ body {
   position: relative;
 }
 
-/* МАГИЯ ФОНА (размытые пятна) */
+/* МАГИЯ ФОНА */
 body::before, body::after {
   content: "";
   position: fixed;
@@ -49,14 +49,15 @@ body::after {
 .header h1 { font-size: 2.5rem; margin-bottom: 10px; font-weight: 700; }
 .header p { color: var(--text-muted); font-size: 1.2rem; }
 
-/* --- СЕТКА КАРТОЧЕК (CSS GRID) --- */
+/* --- УМНАЯ СЕТКА КАРТОЧЕК --- */
 .reviews {
   display: grid;
-  /* На компьютере всегда 4 колонки */
-  grid-template-columns: repeat(4, 1fr); 
+  /* Автоматически подстраивает колонки, но не делает их больше 320px */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 320px));
+  justify-content: center; /* Центрируем весь блок карточек */
   gap: 24px;
   padding: 20px 20px 60px;
-  max-width: 1400px; /* Сделали чуть шире, чтобы 4 карточки влезали */
+  max-width: 1400px;
   margin: 0 auto;
 }
 
@@ -86,7 +87,7 @@ body::after {
 
 .card img {
   width: 100%;
-  height: 180px; /* Уменьшили высоту картинки, чтобы карточки были компактнее */
+  height: 180px;
   object-fit: cover;
   display: block;
   mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
@@ -152,20 +153,7 @@ body::after {
   font-size: 0.9rem;
 }
 
-/* =========================================
-   АДАПТАЦИЯ (ЧТОБЫ НЕ ЛОМАЛОСЬ НА МОБИЛКАХ)
-   ========================================= */
-/* На планшетах (3 колонки) */
-@media (max-width: 1200px) {
-  .reviews { grid-template-columns: repeat(3, 1fr); }
-}
-
-/* На маленьких планшетах (2 колонки) */
-@media (max-width: 900px) {
-  .reviews { grid-template-columns: repeat(2, 1fr); }
-}
-
-/* На телефонах (1 колонка) */
+/* Адаптация для мобилок */
 @media (max-width: 600px) {
   .reviews { grid-template-columns: 1fr; gap: 20px; padding: 10px 15px 40px; }
   .header h1 { font-size: 2rem; }
