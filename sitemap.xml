@@ -7,13 +7,19 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://m5stickpro.github.io/game-reviews/post.html?slug=minecraft-obzor</loc>
+    <loc>https://m5stickpro.github.io/game-reviews/post.html?slug=gta-v</loc>
     <lastmod>2026-11-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://m5stickpro.github.io/game-reviews/post.html?slug=cs2</loc>
+    <loc>https://m5stickpro.github.io/game-reviews/post.html?slug=deadlock</loc>
+    <lastmod>2026-11-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://m5stickpro.github.io/game-reviews/post.html?slug=minecraft</loc>
     <lastmod>2026-11-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -25,13 +31,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://m5stickpro.github.io/game-reviews/post.html?slug=gta-v</loc>
-    <lastmod>2026-11-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://m5stickpro.github.io/game-reviews/post.html?slug=deadlock</loc>
+    <loc>https://m5stickpro.github.io/game-reviews/post.html?slug=cs2-counter-strike-2</loc>
     <lastmod>2026-11-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
