@@ -1,6 +1,3 @@
-/* =========================================
-   ЦВЕТА И НАСТРОЙКИ
-   ========================================= */
 :root {
   --bg-dark: #121212;
   --card-bg: rgba(40, 40, 40, 0.4);
@@ -8,7 +5,6 @@
   --text-muted: #a0a0a0;
   --accent-orange: #ff6b00;
   --border-glass: rgba(255, 255, 255, 0.1);
-  
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -23,7 +19,6 @@ body {
   position: relative;
 }
 
-/* МАГИЯ ФОНА */
 body::before, body::after {
   content: "";
   position: fixed;
@@ -41,7 +36,6 @@ body::after {
   background: #6c3ce0; bottom: -150px; left: -100px;
 }
 
-/* --- ШАПКА САЙТА --- */
 .header {
   text-align: center;
   padding: 50px 20px 30px;
@@ -49,19 +43,16 @@ body::after {
 .header h1 { font-size: 2.5rem; margin-bottom: 10px; font-weight: 700; }
 .header p { color: var(--text-muted); font-size: 1.2rem; }
 
-/* --- УМНАЯ СЕТКА КАРТОЧЕК --- */
 .reviews {
   display: grid;
-  /* Автоматически подстраивает колонки, но не делает их больше 320px */
   grid-template-columns: repeat(auto-fit, minmax(300px, 320px));
-  justify-content: center; /* Центрируем весь блок карточек */
+  justify-content: center;
   gap: 24px;
   padding: 20px 20px 60px;
   max-width: 1400px;
   margin: 0 auto;
 }
 
-/* --- СТЕКЛЯННАЯ КАРТОЧКА --- */
 .card {
   background: var(--card-bg);
   backdrop-filter: blur(16px);
@@ -110,7 +101,6 @@ body::after {
 }
 .card-body p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; flex-grow: 1; }
 
-/* Кнопка "Читать далее" */
 .read-more-btn {
   display: block;
   text-align: center;
@@ -132,7 +122,6 @@ body::after {
   box-shadow: 0 0 15px rgba(255, 107, 0, 0.4);
 }
 
-/* Выделенная карточка (Оранжевая) */
 .card.highlight {
   background: linear-gradient(135deg, rgba(255, 107, 0, 0.8), rgba(255, 0, 100, 0.6));
   border: 1px solid rgba(255, 255, 255, 0.4);
@@ -153,7 +142,26 @@ body::after {
   font-size: 0.9rem;
 }
 
-/* Адаптация для мобилок */
+.skeleton-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  height: 380px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+.skeleton-card::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+  animation: shimmer 1.5s infinite;
+}
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
 @media (max-width: 600px) {
   .reviews { grid-template-columns: 1fr; gap: 20px; padding: 10px 15px 40px; }
   .header h1 { font-size: 2rem; }

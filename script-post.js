@@ -5,7 +5,7 @@ const params = new URLSearchParams(window.location.search);
 const slug = params.get('slug');
 
 if (!slug) {
-  document.getElementById('post-content').innerHTML = '<p style="color:red">Ошибка: Статья не найдена.</p>';
+  document.getElementById('post-content').innerHTML = '<p style="color:red">Статья не найдена.</p>';
 } else {
   const query = encodeURIComponent(`*[_type == "post" && slug.current == "${slug}"][0]{
     title,
@@ -56,15 +56,14 @@ if (!slug) {
         .then(data => { views = data.value; })
         .catch(() => { views = 0; })
         .finally(() => {
-          // Обновляем title страницы для SEO
           document.title = `${post.title} — GameReviews`;
           
           document.getElementById('post-content').innerHTML = `
             <a href="index.html" class="back-btn">← Назад к обзорам</a>
-            ${post.imageUrl ? `<img src="${post.imageUrl}" alt="${post.title}">` : ''}
+            ${post.imageUrl ? `<img src="${post.imageUrl}" alt="${post.title}" loading="lazy">` : ''}
             <h1>${post.title}</h1>
             <div style="color: #ffd700; font-size: 1.5rem; margin-bottom: 10px; letter-spacing: 2px;">${starsHtml}</div>
-            <p style="color:#ff6b00; font-weight:bold; margin-bottom: 20px;">👁 ${views} просмотров</p>
+            <p style="color:#ff6b00; font-weight:bold; margin-bottom: 20px;">Просмотров: ${views}</p>
             
             <div class="post-body">
               ${bodyHtml}
