@@ -39,7 +39,6 @@ if (!slug) {
         bodyHtml = '<p>Текст обзора отсутствует.</p>';
       }
 
-      // Считаем звезды для страницы статьи
       let starsHtml = '';
       if (post.rating) {
         const fullStars = Math.floor(post.rating / 2);
@@ -49,8 +48,6 @@ if (!slug) {
         starsHtml += ` <span style="color:#9a9aad; font-size: 1.2rem;">(${post.rating}/10)</span>`;
       }
 
-      // --- СЧЕТЧИК ПРОСМОТРОВ ---
-      // ВАЖНО: Замени "m5stickpro-site" на любое свое уникальное слово на английском!
       const counterKey = `m5stickpro-site-${slug}`;
       let views = 0;
 
@@ -59,14 +56,20 @@ if (!slug) {
         .then(data => { views = data.value; })
         .catch(() => { views = 0; })
         .finally(() => {
+          // Я добавил блок с автором прямо перед закрывающим тегом div (post-body)
           document.getElementById('post-content').innerHTML = `
             <a href="index.html" class="back-btn">← Назад к обзорам</a>
             ${post.imageUrl ? `<img src="${post.imageUrl}" alt="${post.title}">` : ''}
             <h1>${post.title}</h1>
             <div style="color: #ffd700; font-size: 1.5rem; margin-bottom: 10px; letter-spacing: 2px;">${starsHtml}</div>
             <p style="color:#6c3ce0; font-weight:bold; margin-bottom: 20px;">👁 ${views} просмотров</p>
+            
             <div class="post-body">
               ${bodyHtml}
+            </div>
+
+            <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #2a2e3d; text-align: center; color: #9a9aad;">
+              Made by <strong style="color: #6c3ce0;">M5StickPro</strong>
             </div>
           `;
         });
