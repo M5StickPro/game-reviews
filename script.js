@@ -17,7 +17,7 @@ function renderReviews(reviews) {
   container.innerHTML = "";
 
   if (!reviews || reviews.length === 0) {
-    container.innerHTML = "<p style='color: #a0a0a0; text-align: center; width: 100%; grid-column: 1 / -1;'>Пока нет статей. Добавь их в Sanity и нажми Publish!</p>";
+    container.innerHTML = "<p style='color: #a0a0a0; text-align: center; width: 100%;'>Пока нет статей. Добавь их в Sanity и нажми Publish!</p>";
     return;
   }
 
@@ -65,5 +65,5 @@ fetch(url)
   })
   .catch(error => {
     console.error('Ошибка запроса:', error);
-    document.getElementById("reviews").innerHTML = `<p style="color:red; grid-column: 1 / -1;">Ошибка: ${error.message}</p>`;
+    document.getElementById("reviews").innerHTML = `<p style="color:red;">Ошибка: ${error.message}</p>`;
   });

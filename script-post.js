@@ -56,6 +56,9 @@ if (!slug) {
         .then(data => { views = data.value; })
         .catch(() => { views = 0; })
         .finally(() => {
+          // Обновляем title страницы для SEO
+          document.title = `${post.title} — GameReviews`;
+          
           document.getElementById('post-content').innerHTML = `
             <a href="index.html" class="back-btn">← Назад к обзорам</a>
             ${post.imageUrl ? `<img src="${post.imageUrl}" alt="${post.title}">` : ''}
