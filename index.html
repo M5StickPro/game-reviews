@@ -4,23 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GameReviews — Честные обзоры игр</title>
-  <meta name="description" content="Честные обзоры популярных и инди-игр. Оценки, скриншоты, геймплей и личное мнение автора. Узнай, стоит ли играть.">
-  <meta name="keywords" content="обзоры игр, рецензии, геймплей, рейтинг игр, игровой блог">
-  <meta name="author" content="M5StickPro">
-  <meta property="og:title" content="GameReviews — Честные обзоры игр">
-  <meta property="og:description" content="Честные обзоры популярных и инди-игр. Оценки, скриншоты и личное мнение.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://m5stickpro.github.io/game-reviews/">
-  <meta property="og:image" content="https://m5stickpro.github.io/game-reviews/icon.png">
+  <meta name="description" content="Честные обзоры популярных и инди-игр. Оценки, скриншоты, геймплей и личное мнение автора.">
   <link rel="icon" type="image/png" href="icon.png">
-  <link rel="apple-touch-icon" href="icon.png">
-  <meta name="theme-color" content="#121212">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="header">
+    <div class="theme-switcher">
+      <button class="theme-btn" onclick="toggleThemeMenu()">Темы</button>
+      <div class="theme-menu" id="themeMenu">
+        <button onclick="setTheme('dark')">Тёмная</button>
+        <button onclick="setTheme('light')">Светлая</button>
+        <button onclick="setTheme('lavender')">Лаванда</button>
+        <button onclick="setTheme('mint')">Мята</button>
+        <button onclick="setTheme('cyberpunk')">Киберпанк</button>
+      </div>
+    </div>
     <h1>GameReviews</h1>
     <p>Честные обзоры игр</p>
+    
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Поиск игры..." autocomplete="off">
+    </div>
   </header>
 
   <main>
@@ -35,6 +40,8 @@
   <footer class="footer">
     <p>© 2026 GameReviews</p>
   </footer>
+
+  <button id="scrollTopBtn" class="scroll-top" onclick="scrollToTop()">↑</button>
 
   <script src="script.js"></script>
 </body>

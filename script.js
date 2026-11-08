@@ -11,6 +11,9 @@ const query = encodeURIComponent(`*[_type == "post"]{
 
 const url = `https://${projectId}.api.sanity.io/v2024-01-01/data/query/${dataset}?query=${query}`;
 
+// Глобальная переменная для хранения всех статей
+let allReviews = [];
+
 function renderReviews(reviews) {
   const container = document.getElementById("reviews");
   if (!container) return;
@@ -18,7 +21,7 @@ function renderReviews(reviews) {
   container.innerHTML = "";
 
   if (!reviews || reviews.length === 0) {
-    container.innerHTML = "<p style='color: #a0a0a0; text-align: center; width: 100%;'>Нет статей.</p>";
+    container.innerHTML = "<p style='color: var(--text-muted); text-align: center; width: 100%;'>Ничего не найдено.</p>";
     return;
   }
 
@@ -44,9 +47,9 @@ function renderReviews(reviews) {
           starsHtml += '☆';
         }
       }
-      starsHtml += ` <span style="color:#a0a0a0; font-size: 1rem;">(${r.rating}/10)</span>`;
+      starsHtml += ` <span style="color:var(--text-muted); font-size: 1rem;">(${r.rating}/10)</span>`;
     } else {
-      starsHtml = '<span style="color:#a0a0a0; font-size: 1rem;">Нет оценки</span>';
+      starsHtml = '<span style="color:var(--text-muted); font-size: 1rem;">Нет оценки</span>';
     }
 
     const textText = r.text || 'Описание отсутствует.';
@@ -65,12 +68,60 @@ function renderReviews(reviews) {
   });
 }
 
+// Загрузка данных
 fetch(url)
   .then(response => response.json())
   .then(data => {
-    renderReviews(data.result);
+    allReviews = data.result; // Сохраняем все статьи
+    renderReviews(allReviews); // Показываем все
   })
   .catch(error => {
     console.error('Ошибка запроса:', error);
     document.getElementById("reviews").innerHTML = `<p style="color:red;">Ошибка: ${error.message}</p>`;
   });
+
+// --- ПОИСК ---
+document.getElementById('searchInput').addEventListener('input', function(e) {
+  const searchTerm = e.target.value.toLowerCase();
+  
+  // Фильтруем статьи по названию
+  const filtered = allReviews.filter(review => 
+    review.title.toLowerCase().includes(searchTerm)
+  );
+  
+  // Перерисовываем карточки
+  renderReviews(filtered);
+});
+
+// --- ЛОГИКА ТЕМ ---
+function toggleThemeMenu() {
+  document.getElementById('themeMenu').classList.toggle('active');
+}
+
+function setTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('theme', theme);
+  document.getElementById('themeMenu').classList.remove('active');
+}
+
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme) {
+  document.documentElement.setAttribute('data-theme', savedTheme);
+} else {
+  document.documentElement.setAttribute('data-theme', 'dark');
+}
+
+// --- КНОПКА НАВЕРХ ---
+const scrollBtn = document.getElementById("scrollTopBtn");
+
+window.onscroll = function() {
+  if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+    scrollBtn.classList.add("show");
+  } else {
+    scrollBtn.classList.remove("show");
+  }
+};
+
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
