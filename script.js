@@ -147,3 +147,6 @@ window.onscroll = function() {
 function scrollToTop() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
+<script data-goatcounter="https://beluga.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
