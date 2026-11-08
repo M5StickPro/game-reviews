@@ -121,14 +121,13 @@ body::after {
 }
 .theme-menu button:hover { background: rgba(255, 255, 255, 0.1); }
 
-/* --- СЕТКА ДЛЯ 5 КАРТОЧЕК В РЯД --- */
+/* --- УМНАЯ СЕТКА ДЛЯ 4 КАРТОЧЕК --- */
 .reviews {
   display: grid;
-  /* Делаем минимальную ширину карточки 200px, чтобы 5 штук влезали на экран */
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
   padding: 20px 20px 60px;
-  max-width: 1400px;
+  max-width: 1300px;
   margin: 0 auto;
 }
 
@@ -136,7 +135,7 @@ body::after {
   background: var(--card-bg);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-radius: 16px;
+  border-radius: 20px;
   overflow: hidden;
   border: 1px solid var(--border-glass);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
@@ -151,22 +150,22 @@ body::after {
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
 }
 .card img {
-  width: 100%; height: 150px; object-fit: cover; display: block;
+  width: 100%; height: 180px; object-fit: cover; display: block;
   mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
   -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
   transition: transform 0.6s var(--ease-out);
 }
 .card:hover img { transform: scale(1.03); }
-.card-body { padding: 12px; flex-grow: 1; display: flex; flex-direction: column; z-index: 1; }
-.card-body h2 { font-size: 1rem; margin-bottom: 6px; color: var(--text-main); line-height: 1.3; }
-.card-body p { color: var(--text-muted); font-size: 0.8rem; line-height: 1.4; flex-grow: 1; }
+.card-body { padding: 16px; flex-grow: 1; display: flex; flex-direction: column; z-index: 1; }
+.card-body h2 { font-size: 1.15rem; margin-bottom: 8px; color: var(--text-main); line-height: 1.3; }
+.card-body p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; flex-grow: 1; }
 
 .rating {
   display: flex;
   align-items: center;
   gap: 2px;
-  margin-bottom: 8px;
-  font-size: 0.9rem;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
   color: #ffd700;
 }
 .star {
@@ -183,10 +182,10 @@ body::after {
 }
 
 .read-more-btn {
-  display: block; text-align: center; margin-top: 12px; padding: 8px;
+  display: block; text-align: center; margin-top: 15px; padding: 10px;
   background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-glass);
-  border-radius: 8px; color: var(--text-main); text-decoration: none;
-  font-weight: 600; font-size: 0.8rem; transition: all 0.4s var(--ease-out);
+  border-radius: 10px; color: var(--text-main); text-decoration: none;
+  font-weight: 600; font-size: 0.9rem; transition: all 0.4s var(--ease-out);
 }
 .read-more-btn:hover {
   background: var(--accent-orange); color: var(--bg-dark); border-color: var(--accent-orange);
@@ -200,7 +199,7 @@ body::after {
 .footer { text-align: center; padding: 30px; color: var(--text-muted); font-size: 0.9rem; }
 
 .skeleton-card {
-  background: rgba(255, 255, 255, 0.05); border-radius: 16px; height: 320px;
+  background: rgba(255, 255, 255, 0.05); border-radius: 20px; height: 380px;
   position: relative; overflow: hidden; border: 1px solid var(--border-glass);
 }
 .skeleton-card::after {
@@ -219,15 +218,13 @@ body::after {
 .scroll-top.show { opacity: 1; visibility: visible; }
 
 @media (max-width: 1200px) {
-  .reviews { grid-template-columns: repeat(4, 1fr); }
-}
-@media (max-width: 900px) {
   .reviews { grid-template-columns: repeat(3, 1fr); }
 }
+@media (max-width: 900px) {
+  .reviews { grid-template-columns: repeat(2, 1fr); }
+}
 @media (max-width: 600px) {
-  .reviews { grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 10px 15px 40px; }
+  .reviews { grid-template-columns: 1fr; gap: 20px; padding: 10px 15px 40px; }
   .header h1 { font-size: 2rem; }
-  .card img { height: 120px; }
-  .card-body h2 { font-size: 0.9rem; }
-  .card-body p { display: none; } /* На телефоне скрываем описание, чтобы было компактно */
+  .card img { height: 200px; }
 }
