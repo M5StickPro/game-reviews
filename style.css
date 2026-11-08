@@ -312,7 +312,7 @@ body::after {
 
 .footer { text-align: center; padding: 30px; color: var(--text-muted); font-size: 0.9rem; }
 
-/* НОВАЯ АНИМАЦИЯ ЗАГРУЗКИ (СКЕЛЕТОНЫ) */
+/* АНИМАЦИЯ ЗАГРУЗКИ (СКЕЛЕТОНЫ) */
 .skeleton-card {
   background: rgba(255, 255, 255, 0.03);
   border-radius: 20px;
@@ -323,17 +323,11 @@ body::after {
   backdrop-filter: blur(5px);
   animation: pulse 2s infinite ease-in-out;
 }
-
 .skeleton-card::after {
   content: "";
   position: absolute;
   top: 0; left: -100%; width: 50%; height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.08),
-    transparent
-  );
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
   animation: shimmer 1.5s infinite;
 }
 
@@ -342,11 +336,29 @@ body::after {
   50% { opacity: 1; }
   100% { opacity: 0.6; }
 }
-
 @keyframes shimmer {
   0% { transform: translateX(0); }
   100% { transform: translateX(300%); }
 }
+
+/* СКЕЛЕТОНЫ ДЛЯ СТРАНИЦЫ СТАТЬИ */
+.skeleton-title {
+  height: 40px; width: 70%; background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px; margin-bottom: 20px;
+  animation: pulse 2s infinite ease-in-out;
+}
+.skeleton-image {
+  height: 300px; width: 100%; background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px; margin-bottom: 20px;
+  animation: pulse 2s infinite ease-in-out;
+}
+.skeleton-text {
+  height: 20px; width: 100%; background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px; margin-bottom: 12px;
+  animation: pulse 2s infinite ease-in-out;
+}
+.skeleton-text:nth-child(4) { width: 90%; }
+.skeleton-text:nth-child(5) { width: 80%; }
 
 .scroll-top {
   position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px;

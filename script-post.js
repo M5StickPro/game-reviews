@@ -55,7 +55,6 @@ if (!slug) {
         starsHtml += ` <span style="color:var(--text-muted); font-size: 1.2rem; margin-left: 5px;">(${post.rating}/10)</span>`;
       }
 
-      // ОПТИМИЗАЦИЯ КАРТИНКИ
       let postImg = post.imageUrl || '';
       if (post.imageUrl && post.imageUrl.includes('cdn.sanity.io')) {
         postImg = post.imageUrl + '?w=800';
