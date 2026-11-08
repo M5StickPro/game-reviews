@@ -7,11 +7,13 @@ const slug = params.get('slug');
 if (!slug) {
   document.getElementById('post-content').innerHTML = '<p style="color:red">Статья не найдена.</p>';
 } else {
+  // Запрос на текущую статью
   const query = encodeURIComponent(`*[_type == "post" && slug.current == "${slug}"][0]{
     title,
     "imageUrl": mainImage.asset->url,
     "body": body,
-    "rating": rating
+    "rating": rating,
+    "genre": genre
   }`);
 
   const url = `https://${projectId}.api.sanity.io/v2024-01-01/data/query/${dataset}?query=${query}`;
@@ -78,13 +80,71 @@ if (!slug) {
             <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-glass); text-align: center; color: var(--text-muted);">
               Made by <strong style="color: var(--accent-orange);">M5StickPro</strong>
             </div>
+
+            <div class="related-posts" id="related-posts"></div>
           `;
+
+          // Загружаем похожие статьи
+          loadRelatedPosts(slug, post.genre);
         });
     })
     .catch(error => {
       console.error('Ошибка:', error);
       document.getElementById('post-content').innerHTML = `<p style="color:red">Ошибка загрузки: ${error.message}</p>`;
     });
+}
+
+// Функция загрузки похожих статей
+function loadRelatedPosts(currentSlug, currentGenre) {
+  const relatedContainer = document.getElementById('related-posts');
+  if (!relatedContainer) return;
+
+  // Запрос: берем 3 статьи, исключая текущую. Если есть жанр - ищем по нему, иначе просто любые.
+  let relatedQuery = `*[_type == "post" && slug.current != "${currentSlug}"]`;
+  if (currentGenre) {
+    relatedQuery += ` && genre == "${currentGenre}"`;
+  }
+  relatedQuery = encodeURIComponent(relatedQuery + ` | order(_createdAt desc)[0...3] {
+    title,
+    "imageUrl": mainImage.asset->url,
+    "rating": rating,
+    "slug": slug.current
+  }`);
+
+  const relatedUrl = `https://${projectId}.api.sanity.io/v2024-01-01/data/query/${dataset}?query=${relatedQuery}`;
+
+  fetch(relatedUrl)
+    .then(res => res.json())
+    .then(data => {
+      const related = data.result;
+      if (related && related.length > 0) {
+        let html = `<h3 class="related-title">Читайте также</h3><div class="related-grid">`;
+        
+        related.forEach(r => {
+          let miniStars = '';
+          if (r.rating) {
+            const full = Math.floor(r.rating / 2);
+            for (let i = 0; i < 5; i++) {
+              miniStars += i < full ? '★' : '☆';
+            }
+            miniStars += ` (${r.rating}/10)`;
+          }
+
+          html += `
+            <a href="post.html?slug=${r.slug}" class="related-card">
+              ${r.imageUrl ? `<img src="${r.imageUrl}" alt="${r.title}" loading="lazy">` : ''}
+              <div class="related-card-body">
+                <h4>${r.title}</h4>
+                <div class="related-rating">${miniStars}</div>
+              </div>
+            </a>
+          `;
+        });
+        html += `</div>`;
+        relatedContainer.innerHTML = html;
+      }
+    })
+    .catch(err => console.error('Ошибка загрузки похожих статей:', err));
 }
 
 function toggleThemeMenu() {

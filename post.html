@@ -6,27 +6,76 @@
   <title>Обзор игры — GameReviews</title>
   <meta name="description" content="Полный обзор игры: геймплей, сюжет, графика и итоговая оценка.">
   <link rel="icon" type="image/png" href="icon.png">
-  <link rel="apple-touch-icon" href="icon.png">
-  <meta name="theme-color" content="#121212">
   <link rel="stylesheet" href="style.css">
   <style>
     .post-container { 
       max-width: 800px; 
       margin: 40px auto; 
       padding: 30px; 
-      background: rgba(40, 40, 40, 0.4); 
+      background: var(--card-bg); 
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-radius: 24px; 
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--border-glass);
       box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     }
     .post-container img { width: 100%; border-radius: 16px; margin-bottom: 20px; }
-    .post-container h1 { margin-bottom: 20px; font-size: 2.2rem; color: #fff; }
-    .post-body { line-height: 1.8; font-size: 1.1rem; color: #ccc; }
+    .post-container h1 { margin-bottom: 20px; font-size: 2.2rem; color: var(--text-main); }
+    .post-body { line-height: 1.8; font-size: 1.1rem; color: var(--text-muted); }
     .post-body p { margin-bottom: 15px; }
-    .back-btn { display: inline-block; margin-bottom: 20px; color: #ff6b00; text-decoration: none; font-weight: bold; transition: 0.3s;}
-    .back-btn:hover { text-decoration: underline; color: #fff; }
+    .back-btn { display: inline-block; margin-bottom: 20px; color: var(--accent-orange); text-decoration: none; font-weight: bold; transition: 0.3s;}
+    .back-btn:hover { text-decoration: underline; color: var(--text-main); }
+
+    /* Стили для блока "Читайте также" */
+    .related-posts {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-glass);
+    }
+    .related-title {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      color: var(--text-main);
+    }
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    .related-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-glass);
+      border-radius: 12px;
+      overflow: hidden;
+      text-decoration: none;
+      color: var(--text-main);
+      transition: 0.3s;
+    }
+    .related-card:hover {
+      border-color: var(--accent-orange);
+      transform: translateY(-3px);
+    }
+    .related-card img {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+      display: block;
+      margin-bottom: 0;
+      border-radius: 12px 12px 0 0;
+    }
+    .related-card-body {
+      padding: 10px;
+    }
+    .related-card-body h4 {
+      font-size: 0.95rem;
+      margin-bottom: 5px;
+      line-height: 1.3;
+    }
+    .related-card-body .related-rating {
+      font-size: 0.8rem;
+      color: #ffd700;
+    }
+
     @media (max-width: 768px) {
       .post-container { margin: 20px 15px; padding: 20px; }
       .post-container h1 { font-size: 1.6rem; }
@@ -44,6 +93,8 @@
       <p>Загрузка...</p>
     </div>
   </main>
+
+  <button id="scrollTopBtn" class="scroll-top" onclick="scrollToTop()">↑</button>
 
   <script src="script-post.js"></script>
 </body>
