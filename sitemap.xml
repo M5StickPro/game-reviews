@@ -2,38 +2,78 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://m5stickpro.github.io/game-reviews/</loc>
-    <lastmod>2026-11-07</lastmod>
+    <lastmod>2026-11-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://m5stickpro.github.io/game-reviews/post.html?slug=gta-v</loc>
-    <lastmod>2026-11-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://m5stickpro.github.io/game-reviews/post.html?slug=deadlock</loc>
-    <lastmod>2026-11-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://m5stickpro.github.io/game-reviews/post.html?slug=minecraft</loc>
-    <lastmod>2026-11-07</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://m5stickpro.github.io/game-reviews/post.html?slug=cs2-counter-strike-2</loc>
+    <lastmod>2026-11-08</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://m5stickpro.github.io/game-reviews/post.html?slug=dota-2</loc>
-    <lastmod>2026-11-07</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-11-08</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://m5stickpro.github.io/game-reviews/post.html?slug=cs2-counter-strike-2</loc>
-    <lastmod>2026-11-07</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://m5stickpro.github.io/game-reviews/post.html?slug=gta-v</loc>
+    <lastmod>2026-11-08</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://m5stickpro.github.io/game-reviews/post.html?slug=deadlock</loc>
+    <lastmod>2026-11-08</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://m5stickpro.github.io/game-reviews/post.html?slug=minecraft</loc>
+    <lastmod>2026-11-08</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://m5stickpro.github.io/game-reviews/post.html?slug=far-cry-3</loc>
+    <lastmod>2026-11-08</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://m5stickpro.github.io/game-reviews/post.html?slug=rust</loc>
+    <lastmod>2026-11-08</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://m5stickpro.github.io/game-reviews/post.html?slug=standoff-2</loc>
+    <lastmod>2026-11-08</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://m5stickpro.github.io/game-reviews/post.html?slug=call-of-duty-warzone</loc>
+    <lastmod>2026-11-08</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://m5stickpro.github.io/game-reviews/post.html?slug=roblox</loc>
+    <lastmod>2026-11-08</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://m5stickpro.github.io/game-reviews/post.html?slug=half-life-2</loc>
+    <lastmod>2026-11-08</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://m5stickpro.github.io/game-reviews/post.html?slug=garry-s-mod</loc>
+    <lastmod>2026-11-08</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://m5stickpro.github.io/game-reviews/post.html?slug=hearts-of-iron-iv</loc>
+    <lastmod>2026-11-08</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://m5stickpro.github.io/game-reviews/post.html?slug=red-dead-redemption-2</loc>
+    <lastmod>2026-11-08</lastmod>
     <priority>0.8</priority>
   </url>
 </urlset>
