@@ -11,7 +11,6 @@ const query = encodeURIComponent(`*[_type == "post"]{
 
 const url = `https://${projectId}.api.sanity.io/v2024-01-01/data/query/${dataset}?query=${query}`;
 
-// Глобальная переменная для хранения всех статей
 let allReviews = [];
 
 function renderReviews(reviews) {
@@ -35,21 +34,22 @@ function renderReviews(reviews) {
 
     const imgSrc = r.imageUrl || 'https://via.placeholder.com/600x400?text=No+Image';
     
+    // Генерация красивых звезд
     let starsHtml = '';
     if (r.rating) {
       const ratingOutOfFive = r.rating / 2;
       for (let i = 1; i <= 5; i++) {
         if (i <= Math.floor(ratingOutOfFive)) {
-          starsHtml += '★';
+          starsHtml += '<span class="star full">★</span>';
         } else if (i === Math.ceil(ratingOutOfFive) && !Number.isInteger(ratingOutOfFive)) {
-          starsHtml += '⯨';
+          starsHtml += '<span class="star half">★</span>';
         } else {
-          starsHtml += '☆';
+          starsHtml += '<span class="star empty">★</span>';
         }
       }
-      starsHtml += ` <span style="color:var(--text-muted); font-size: 1rem;">(${r.rating}/10)</span>`;
+      starsHtml += ` <span style="color:var(--text-muted); font-size: 0.9rem; margin-left: 5px;">(${r.rating}/10)</span>`;
     } else {
-      starsHtml = '<span style="color:var(--text-muted); font-size: 1rem;">Нет оценки</span>';
+      starsHtml = '<span style="color:var(--text-muted); font-size: 0.9rem;">Нет оценки</span>';
     }
 
     const textText = r.text || 'Описание отсутствует.';
@@ -68,32 +68,25 @@ function renderReviews(reviews) {
   });
 }
 
-// Загрузка данных
 fetch(url)
   .then(response => response.json())
   .then(data => {
-    allReviews = data.result; // Сохраняем все статьи
-    renderReviews(allReviews); // Показываем все
+    allReviews = data.result;
+    renderReviews(allReviews);
   })
   .catch(error => {
     console.error('Ошибка запроса:', error);
     document.getElementById("reviews").innerHTML = `<p style="color:red;">Ошибка: ${error.message}</p>`;
   });
 
-// --- ПОИСК ---
 document.getElementById('searchInput').addEventListener('input', function(e) {
   const searchTerm = e.target.value.toLowerCase();
-  
-  // Фильтруем статьи по названию
   const filtered = allReviews.filter(review => 
     review.title.toLowerCase().includes(searchTerm)
   );
-  
-  // Перерисовываем карточки
   renderReviews(filtered);
 });
 
-// --- ЛОГИКА ТЕМ ---
 function toggleThemeMenu() {
   document.getElementById('themeMenu').classList.toggle('active');
 }
@@ -111,9 +104,7 @@ if (savedTheme) {
   document.documentElement.setAttribute('data-theme', 'dark');
 }
 
-// --- КНОПКА НАВЕРХ ---
 const scrollBtn = document.getElementById("scrollTopBtn");
-
 window.onscroll = function() {
   if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
     scrollBtn.classList.add("show");

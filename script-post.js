@@ -41,11 +41,17 @@ if (!slug) {
 
       let starsHtml = '';
       if (post.rating) {
-        const fullStars = Math.floor(post.rating / 2);
-        for (let i = 0; i < 5; i++) {
-          starsHtml += i < fullStars ? '★' : '☆';
+        const ratingOutOfFive = post.rating / 2;
+        for (let i = 1; i <= 5; i++) {
+          if (i <= Math.floor(ratingOutOfFive)) {
+            starsHtml += '<span class="star full">★</span>';
+          } else if (i === Math.ceil(ratingOutOfFive) && !Number.isInteger(ratingOutOfFive)) {
+            starsHtml += '<span class="star half">★</span>';
+          } else {
+            starsHtml += '<span class="star empty">★</span>';
+          }
         }
-        starsHtml += ` <span style="color:#a0a0a0; font-size: 1.2rem;">(${post.rating}/10)</span>`;
+        starsHtml += ` <span style="color:var(--text-muted); font-size: 1.2rem; margin-left: 5px;">(${post.rating}/10)</span>`;
       }
 
       const counterKey = `m5stickpro-site-${slug}`;
@@ -62,15 +68,15 @@ if (!slug) {
             <a href="index.html" class="back-btn">← Назад к обзорам</a>
             ${post.imageUrl ? `<img src="${post.imageUrl}" alt="${post.title}" loading="lazy">` : ''}
             <h1>${post.title}</h1>
-            <div style="color: #ffd700; font-size: 1.5rem; margin-bottom: 10px; letter-spacing: 2px;">${starsHtml}</div>
-            <p style="color:#ff6b00; font-weight:bold; margin-bottom: 20px;">Просмотров: ${views}</p>
+            <div class="rating">${starsHtml}</div>
+            <p style="color:var(--accent-orange); font-weight:bold; margin-bottom: 20px;">Просмотров: ${views}</p>
             
             <div class="post-body">
               ${bodyHtml}
             </div>
 
-            <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; color: #a0a0a0;">
-              Made by <strong style="color: #ff6b00;">M5StickPro</strong>
+            <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-glass); text-align: center; color: var(--text-muted);">
+              Made by <strong style="color: var(--accent-orange);">M5StickPro</strong>
             </div>
           `;
         });
@@ -79,4 +85,34 @@ if (!slug) {
       console.error('Ошибка:', error);
       document.getElementById('post-content').innerHTML = `<p style="color:red">Ошибка загрузки: ${error.message}</p>`;
     });
+}
+
+function toggleThemeMenu() {
+  document.getElementById('themeMenu').classList.toggle('active');
+}
+
+function setTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('theme', theme);
+  document.getElementById('themeMenu').classList.remove('active');
+}
+
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme) {
+  document.documentElement.setAttribute('data-theme', savedTheme);
+} else {
+  document.documentElement.setAttribute('data-theme', 'dark');
+}
+
+const scrollBtn = document.getElementById("scrollTopBtn");
+window.onscroll = function() {
+  if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+    scrollBtn.classList.add("show");
+  } else {
+    scrollBtn.classList.remove("show");
+  }
+};
+
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
