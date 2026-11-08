@@ -37,7 +37,11 @@ function renderReviews(reviews) {
       card.classList.add("highlight");
     }
 
-    const imgSrc = r.imageUrl || 'https://via.placeholder.com/600x400?text=No+Image';
+    // ДОБАВЛЕН ПАРАМЕТР ?w=400 ДЛЯ ОПТИМИЗАЦИИ КАРТИНОК
+    let imgSrc = r.imageUrl || 'https://via.placeholder.com/600x400?text=No+Image';
+    if (r.imageUrl && r.imageUrl.includes('cdn.sanity.io')) {
+      imgSrc = r.imageUrl + '?w=400';
+    }
     
     let starsHtml = '';
     if (r.rating) {
