@@ -1,3 +1,18 @@
+/* КАСТОМНЫЙ СКРОЛЛБАР */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--accent-orange);
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #cc5500;
+}
+
 :root {
   --bg-dark: #121212;
   --card-bg: rgba(40, 40, 40, 0.4);

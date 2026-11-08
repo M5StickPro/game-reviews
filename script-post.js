@@ -55,6 +55,12 @@ if (!slug) {
         starsHtml += ` <span style="color:var(--text-muted); font-size: 1.2rem; margin-left: 5px;">(${post.rating}/10)</span>`;
       }
 
+      // ОПТИМИЗАЦИЯ КАРТИНКИ
+      let postImg = post.imageUrl || '';
+      if (post.imageUrl && post.imageUrl.includes('cdn.sanity.io')) {
+        postImg = post.imageUrl + '?w=800';
+      }
+
       const counterKey = `m5stickpro-site-${slug}`;
       let views = 0;
 
@@ -67,7 +73,7 @@ if (!slug) {
           
           document.getElementById('post-content').innerHTML = `
             <a href="index.html" class="back-btn">← Назад к обзорам</a>
-            ${post.imageUrl ? `<img src="${post.imageUrl}" alt="${post.title}" loading="lazy">` : ''}
+            ${postImg ? `<img src="${postImg}" alt="${post.title}" loading="lazy">` : ''}
             <h1>${post.title}</h1>
             <div class="rating">${starsHtml}</div>
             <p style="color:var(--accent-orange); font-weight:bold; margin-bottom: 20px;">Просмотров: ${views}</p>
@@ -83,7 +89,6 @@ if (!slug) {
             <div class="related-posts" id="related-posts"></div>
           `;
 
-          // --- ЗАПУСКАЕМ ЗАГРУЗКУ ПОХОЖИХ СТАТЕЙ ---
           loadRelatedPosts(slug);
         });
     })
@@ -97,7 +102,6 @@ function loadRelatedPosts(currentSlug) {
   const relatedContainer = document.getElementById('related-posts');
   if (!relatedContainer) return;
 
-  // Берем 3 любые другие статьи (исключая текущую)
   const relatedQuery = encodeURIComponent(`*[_type == "post" && slug.current != "${currentSlug}"] | order(_createdAt desc) [0...3] {
     title,
     "imageUrl": mainImage.asset->url,
@@ -111,12 +115,9 @@ function loadRelatedPosts(currentSlug) {
     .then(res => res.json())
     .then(data => {
       const related = data.result;
-      
-      // Если статей нет (например, у тебя всего 1 статья), просто ничего не выводим
       if (!related || related.length === 0) return;
 
       let html = `<h3 class="related-title">Читайте также</h3><div class="related-grid">`;
-      
       related.forEach(r => {
         let miniStars = '';
         if (r.rating) {
@@ -127,9 +128,14 @@ function loadRelatedPosts(currentSlug) {
           miniStars += ` (${r.rating}/10)`;
         }
 
+        let relImg = r.imageUrl || '';
+        if (r.imageUrl && r.imageUrl.includes('cdn.sanity.io')) {
+          relImg = r.imageUrl + '?w=200';
+        }
+
         html += `
           <a href="post.html?slug=${r.slug}" class="related-card">
-            ${r.imageUrl ? `<img src="${r.imageUrl}" alt="${r.title}" loading="lazy">` : ''}
+            ${relImg ? `<img src="${relImg}" alt="${r.title}" loading="lazy">` : ''}
             <div class="related-card-body">
               <h4>${r.title}</h4>
               <div class="related-rating">${miniStars}</div>
@@ -138,8 +144,6 @@ function loadRelatedPosts(currentSlug) {
         `;
       });
       html += `</div>`;
-      
-      // Вставляем сгенерированный HTML в контейнер
       relatedContainer.innerHTML = html;
     })
     .catch(err => console.error('Ошибка загрузки похожих статей:', err));
