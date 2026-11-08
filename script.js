@@ -73,12 +73,10 @@ function renderReviews(reviews) {
 function filterReviews() {
   let filtered = allReviews;
 
-  // Фильтр по жанру
   if (currentGenre !== 'all') {
     filtered = filtered.filter(r => r.genre === currentGenre);
   }
 
-  // Фильтр по поиску
   if (currentSearch.trim() !== '') {
     filtered = filtered.filter(r => 
       r.title.toLowerCase().includes(currentSearch.toLowerCase())
@@ -104,15 +102,11 @@ document.getElementById('searchInput').addEventListener('input', function(e) {
   filterReviews();
 });
 
-// Обработка кнопок жанров
 document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', function() {
-    // Убираем класс active у всех
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    // Добавляем текущей
     this.classList.add('active');
     
-    // Устанавливаем текущий жанр
     currentGenre = this.getAttribute('data-genre');
     filterReviews();
   });
@@ -147,6 +141,3 @@ window.onscroll = function() {
 function scrollToTop() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
-
-<script data-goatcounter="https://beluga.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
