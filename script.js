@@ -2,21 +2,10 @@ const projectId = 'lvvctfr4';
 const dataset = 'production';
 const sanityToken = 'skbawiXMggk8KxL60WzRkekShK2VoRbXm387zAjdpCOny58RFsF7gCVJxQ684Rsrn0IcsxwDiZxlESlUkxxC0YIEEiR3SYEaDaUPRNyTdQZVPR6QsPednIq4pdptqSwnQS4KcmcBStr3Qhsv3GEkQsAS8UWtq8rJIogVCjSV94C4fPGrqmJT';
 
-// Запрос статей (с жанрами)
 const queryPosts = encodeURIComponent(`*[_type == "post"]{
-  title,
-  "imageUrl": mainImage.asset->url,
-  "rating": rating,
-  "text": excerpt,
-  "slug": slug.current,
-  "genres": genres[]->{ "value": value.current }
+  title, "imageUrl": mainImage.asset->url, "rating": rating, "text": excerpt, "slug": slug.current, "genres": genres[]->{ "value": value.current }
 }`);
-
-// Запрос всех жанров
-const queryGenres = encodeURIComponent(`*[_type == "genre"]{
-  title,
-  "value": value.current
-}`);
+const queryGenres = encodeURIComponent(`*[_type == "genre"]{ title, "value": value.current }`);
 
 let allReviews = [];
 let currentGenre = 'all';
@@ -27,24 +16,59 @@ fetch(`https://${projectId}.api.sanity.io/v2024-01-01/data/query/${dataset}?quer
   .then(res => res.json())
   .then(data => {
     const genres = data.result;
-    const filtersContainer = document.getElementById('filters');
+    const mainContainer = document.getElementById('filters-main');
+    const moreContainer = document.getElementById('filters-more');
     
-    let html = `<button class="filter-btn active" data-genre="all">Все</button>`;
-    genres.forEach(g => {
-      html += `<button class="filter-btn" data-genre="${g.value}">${g.title}</button>`;
+    // Первые 4 жанра (или сколько есть) идут в основной ряд
+    const mainGenres = genres.slice(0, 4);
+    const moreGenres = genres.slice(4); // Остальные в "Ещё"
+
+    let mainHtml = `<button class="filter-btn active" data-genre="all">Все</button>`;
+    mainGenres.forEach(g => {
+      mainHtml += `<button class="filter-btn" data-genre="${g.value}">${g.title}</button>`;
     });
-    filtersContainer.innerHTML = html;
-    
-    // Добавляем обработчики на новые кнопки
+    mainContainer.innerHTML = mainHtml;
+
+    // Если есть дополнительные жанры, показываем кнопку "Ещё..."
+    if (moreGenres.length > 0) {
+      let moreHtml = `<button class="more-btn" id="moreBtn">Ещё...</button><div class="more-dropdown" id="moreDropdown">`;
+      moreGenres.forEach(g => {
+        moreHtml += `<button class="filter-btn" data-genre="${g.value}">${g.title}</button>`;
+      });
+      moreHtml += `</div>`;
+      moreContainer.innerHTML = moreHtml;
+
+      // Обработчик для открытия/закрытия списка
+      document.getElementById('moreBtn').addEventListener('click', function(e) {
+        e.stopPropagation();
+        document.getElementById('moreDropdown').classList.toggle('active');
+      });
+    }
+
+    // Добавляем обработчики на ВСЕ кнопки (и в основном ряду, и в "Ещё")
     document.querySelectorAll('.filter-btn').forEach(btn => {
       btn.addEventListener('click', function() {
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
         this.classList.add('active');
         currentGenre = this.getAttribute('data-genre');
+        
+        // Закрываем "Ещё" после выбора
+        const dropdown = document.getElementById('moreDropdown');
+        if (dropdown) dropdown.classList.remove('active');
+        
         filterReviews();
       });
     });
   });
+
+// Закрытие выпадающего списка при клике вне его
+window.addEventListener('click', function(e) {
+  const dropdown = document.getElementById('moreDropdown');
+  const moreBtn = document.getElementById('moreBtn');
+  if (dropdown && moreBtn && !moreBtn.contains(e.target) && !dropdown.contains(e.target)) {
+    dropdown.classList.remove('active');
+  }
+});
 
 // 2. Загрузка статей
 fetch(`https://${projectId}.api.sanity.io/v2024-01-01/data/query/${dataset}?query=${queryPosts}`)
@@ -103,17 +127,11 @@ function renderReviews(reviews) {
 
 function filterReviews() {
   let filtered = allReviews;
-
   if (currentGenre !== 'all') {
-    filtered = filtered.filter(r => 
-      r.genres && r.genres.some(g => g.value === currentGenre)
-    );
+    filtered = filtered.filter(r => r.genres && r.genres.some(g => g.value === currentGenre));
   }
-
   if (currentSearch.trim() !== '') {
-    filtered = filtered.filter(r => 
-      r.title.toLowerCase().includes(currentSearch.toLowerCase())
-    );
+    filtered = filtered.filter(r => r.title.toLowerCase().includes(currentSearch.toLowerCase()));
   }
   renderReviews(filtered);
 }
@@ -123,7 +141,7 @@ document.getElementById('searchInput').addEventListener('input', function(e) {
   filterReviews();
 });
 
-// Модалка и темы (остаются без изменений)
+// Модалка предложки и остальное
 function openSuggestModal() { document.getElementById('suggestModal').style.display = 'flex'; }
 function closeSuggestModal() { document.getElementById('suggestModal').style.display = 'none'; }
 document.getElementById('suggestForm').addEventListener('submit', function(e) {

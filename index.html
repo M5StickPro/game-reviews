@@ -27,17 +27,14 @@
       <input type="text" id="searchInput" placeholder="Поиск игры..." autocomplete="off">
     </div>
 
-    <div class="filters" id="filters">
-      <button class="filter-btn active" data-genre="all">Все</button>
-      <button class="filter-btn" data-genre="shooter">Шутеры</button>
-      <button class="filter-btn" data-genre="moba">MOBA</button>
-      <button class="filter-btn" data-genre="rpg">RPG</button>
-      <button class="filter-btn" data-genre="sandbox">Песочницы</button>
-      <button class="filter-btn" data-genre="action">Экшен</button>
-      <button class="filter-btn" data-genre="strategy">Стратегии</button>
-      <button class="filter-btn" data-genre="horror">Хорроры</button>
-      <button class="filter-btn" data-genre="survival">Выживание</button>
-      <button class="filter-btn" data-genre="racing">Гонки</button>
+    <!-- Контейнер для главных кнопок (заполняется JS) -->
+    <div class="filters" id="filters-main">
+      <!-- Сюда JS вставит 4 кнопки -->
+    </div>
+    
+    <!-- Контейнер для кнопки "Ещё" и выпадающего списка (заполняется JS) -->
+    <div class="filters-more-container" id="filters-more">
+      <!-- Сюда JS вставит кнопку "Ещё..." -->
     </div>
 
     <button class="suggest-btn" onclick="openSuggestModal()">Предложить игру</button>
