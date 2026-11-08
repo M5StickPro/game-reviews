@@ -34,6 +34,8 @@
       <button class="filter-btn" data-genre="rpg">RPG</button>
       <button class="filter-btn" data-genre="sandbox">Песочницы</button>
     </div>
+
+    <button class="suggest-btn" onclick="openSuggestModal()">Предложить игру</button>
   </header>
 
   <main>
@@ -50,6 +52,20 @@
   </footer>
 
   <button id="scrollTopBtn" class="scroll-top" onclick="scrollToTop()">↑</button>
+
+  <!-- МОДАЛЬНОЕ ОКНО ПРЕДЛОЖКИ -->
+  <div id="suggestModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeSuggestModal()">&times;</span>
+      <h2>Предложить игру</h2>
+      <p>Знаешь игру, про которую стоит написать обзор? Напиши её название ниже.</p>
+      
+      <input type="text" id="suggestGameName" placeholder="Название игры" autocomplete="off">
+      <textarea id="suggestReason" placeholder="Почему стоит сделать обзор? (необязательно)"></textarea>
+      
+      <button class="submit-suggest-btn" onclick="sendSuggestion()">Отправить в Telegram</button>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>

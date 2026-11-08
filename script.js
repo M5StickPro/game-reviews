@@ -1,6 +1,9 @@
 const projectId = 'lvvctfr4';
 const dataset = 'production';
 
+// ВАЖНО: Замени на свой ник в Telegram (без @)
+const telegramUsername = 'M5StickPro';
+
 const query = encodeURIComponent(`*[_type == "post"]{
   title,
   "imageUrl": mainImage.asset->url,
@@ -111,6 +114,42 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     filterReviews();
   });
 });
+
+// Модальное окно
+function openSuggestModal() {
+  document.getElementById('suggestModal').style.display = 'flex';
+}
+
+function closeSuggestModal() {
+  document.getElementById('suggestModal').style.display = 'none';
+}
+
+function sendSuggestion() {
+  const gameName = document.getElementById('suggestGameName').value.trim();
+  const reason = document.getElementById('suggestReason').value.trim();
+
+  if (!gameName) {
+    alert("Пожалуйста, введите название игры.");
+    return;
+  }
+
+  let message = `Привет! Предлагаю сделать обзор на игру: ${gameName}.`;
+  if (reason) {
+    message += `\nПричина: ${reason}`;
+  }
+
+  const tgUrl = `https://t.me/${telegramUsername}?text=${encodeURIComponent(message)}`;
+  window.open(tgUrl, '_blank');
+  closeSuggestModal();
+}
+
+// Закрытие модального окна при клике вне его
+window.onclick = function(event) {
+  const modal = document.getElementById('suggestModal');
+  if (event.target === modal) {
+    closeSuggestModal();
+  }
+}
 
 function toggleThemeMenu() {
   document.getElementById('themeMenu').classList.toggle('active');
