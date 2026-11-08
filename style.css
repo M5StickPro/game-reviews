@@ -100,6 +100,30 @@ body::after {
 }
 #searchInput::placeholder { color: var(--text-muted); }
 
+/* Фильтры */
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+.filter-btn {
+  background: var(--card-bg);
+  border: 1px solid var(--border-glass);
+  color: var(--text-main);
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+.filter-btn:hover, .filter-btn.active {
+  background: var(--accent-orange);
+  color: var(--bg-dark);
+  border-color: var(--accent-orange);
+}
+
 .theme-switcher { position: absolute; top: 20px; right: 20px; z-index: 10; }
 .theme-btn {
   background: var(--card-bg); border: 1px solid var(--border-glass);
@@ -121,7 +145,6 @@ body::after {
 }
 .theme-menu button:hover { background: rgba(255, 255, 255, 0.1); }
 
-/* --- УМНАЯ СЕТКА ДЛЯ 4 КАРТОЧЕК --- */
 .reviews {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));

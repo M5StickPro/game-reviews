@@ -6,12 +6,15 @@ const query = encodeURIComponent(`*[_type == "post"]{
   "imageUrl": mainImage.asset->url,
   "rating": rating,
   "text": excerpt,
-  "slug": slug.current
+  "slug": slug.current,
+  "genre": genre
 }`);
 
 const url = `https://${projectId}.api.sanity.io/v2024-01-01/data/query/${dataset}?query=${query}`;
 
 let allReviews = [];
+let currentGenre = 'all';
+let currentSearch = '';
 
 function renderReviews(reviews) {
   const container = document.getElementById("reviews");
@@ -34,7 +37,6 @@ function renderReviews(reviews) {
 
     const imgSrc = r.imageUrl || 'https://via.placeholder.com/600x400?text=No+Image';
     
-    // Генерация красивых звезд
     let starsHtml = '';
     if (r.rating) {
       const ratingOutOfFive = r.rating / 2;
@@ -68,6 +70,24 @@ function renderReviews(reviews) {
   });
 }
 
+function filterReviews() {
+  let filtered = allReviews;
+
+  // Фильтр по жанру
+  if (currentGenre !== 'all') {
+    filtered = filtered.filter(r => r.genre === currentGenre);
+  }
+
+  // Фильтр по поиску
+  if (currentSearch.trim() !== '') {
+    filtered = filtered.filter(r => 
+      r.title.toLowerCase().includes(currentSearch.toLowerCase())
+    );
+  }
+
+  renderReviews(filtered);
+}
+
 fetch(url)
   .then(response => response.json())
   .then(data => {
@@ -80,11 +100,22 @@ fetch(url)
   });
 
 document.getElementById('searchInput').addEventListener('input', function(e) {
-  const searchTerm = e.target.value.toLowerCase();
-  const filtered = allReviews.filter(review => 
-    review.title.toLowerCase().includes(searchTerm)
-  );
-  renderReviews(filtered);
+  currentSearch = e.target.value;
+  filterReviews();
+});
+
+// Обработка кнопок жанров
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    // Убираем класс active у всех
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    // Добавляем текущей
+    this.classList.add('active');
+    
+    // Устанавливаем текущий жанр
+    currentGenre = this.getAttribute('data-genre');
+    filterReviews();
+  });
 });
 
 function toggleThemeMenu() {
