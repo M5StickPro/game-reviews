@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GameReviews — Честные обзоры игр</title>
-  <meta name="description" content="Честные обзоры популярных и инди-игр. Оценки, скриншоты, геймплей и личное мнение автора.">
+  <meta name="description" content="Честные обзоры игр. Оценки, скриншоты и личное мнение.">
   <link rel="icon" type="image/png" href="icon.png">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -58,13 +58,11 @@
 
   <button id="scrollTopBtn" class="scroll-top" onclick="scrollToTop()">↑</button>
 
-  <!-- МОДАЛЬНОЕ ОКНО ПРЕДЛОЖКИ -->
   <div id="suggestModal" class="modal">
     <div class="modal-content">
       <span class="close-btn" onclick="closeSuggestModal()">&times;</span>
       <h2>Предложить игру</h2>
-      <p>Знаешь игру, про которую стоит написать обзор? Напиши её название ниже.</p>
-      
+      <p>Напиши название игры, которую стоит обозреть.</p>
       <form id="suggestForm">
         <input type="text" name="game" id="suggestGameName" placeholder="Название игры" required autocomplete="off">
         <textarea name="reason" id="suggestReason" placeholder="Почему стоит сделать обзор? (необязательно)"></textarea>
