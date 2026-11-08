@@ -1,8 +1,7 @@
 const projectId = 'lvvctfr4';
 const dataset = 'production';
 
-// ВАЖНО: Замени на свой ник в Telegram (без @)
-const telegramUsername = 'M5StickPro';
+const sanityToken = 'skiKZkRUddLt0IagcVz19ghpXYueXw7KTbuXBd7D2W5lbnnjYKpFvHR30DI7tauZYjKW9FajbxT4sgkfcZWSvDHXqHcJ9eiMEDA3O9mipwdsHcwcni21qO3hnvgpN48ZqvtZi9Th7dXLT0sni3M7WT3QbU50CFggUguIbEsaantdqijwPYjE';
 
 const query = encodeURIComponent(`*[_type == "post"]{
   title,
@@ -115,7 +114,6 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
   });
 });
 
-// Модальное окно
 function openSuggestModal() {
   document.getElementById('suggestModal').style.display = 'flex';
 }
@@ -124,26 +122,58 @@ function closeSuggestModal() {
   document.getElementById('suggestModal').style.display = 'none';
 }
 
-function sendSuggestion() {
+document.getElementById('suggestForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
   const gameName = document.getElementById('suggestGameName').value.trim();
   const reason = document.getElementById('suggestReason').value.trim();
+  const status = document.getElementById('formStatus');
+  const button = document.querySelector('.submit-suggest-btn');
 
-  if (!gameName) {
-    alert("Пожалуйста, введите название игры.");
-    return;
-  }
+  if (!gameName) return;
 
-  let message = `Привет! Предлагаю сделать обзор на игру: ${gameName}.`;
-  if (reason) {
-    message += `\nПричина: ${reason}`;
-  }
+  button.disabled = true;
+  button.textContent = 'Отправка...';
+  status.textContent = '';
 
-  const tgUrl = `https://t.me/${telegramUsername}?text=${encodeURIComponent(message)}`;
-  window.open(tgUrl, '_blank');
-  closeSuggestModal();
-}
+  const newSuggestion = {
+    _type: 'suggestion',
+    gameName: gameName,
+    reason: reason,
+    createdAt: new Date().toISOString()
+  };
 
-// Закрытие модального окна при клике вне его
+  fetch(`https://${projectId}.api.sanity.io/v2024-01-01/data/mutate/${dataset}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sanityToken}`
+    },
+    body: JSON.stringify({
+      mutations: [{ create: newSuggestion }]
+    })
+  })
+  .then(response => {
+    if (response.ok) {
+      status.innerHTML = '<span style="color: #4caf50;">Спасибо! Предложение отправлено.</span>';
+      document.getElementById('suggestForm').reset();
+      setTimeout(() => {
+        closeSuggestModal();
+        status.textContent = '';
+      }, 2000);
+    } else {
+      status.innerHTML = '<span style="color: #f44336;">Ошибка отправки. Попробуйте позже.</span>';
+    }
+  })
+  .catch(() => {
+    status.innerHTML = '<span style="color: #f44336;">Ошибка сети. Попробуйте позже.</span>';
+  })
+  .finally(() => {
+    button.disabled = false;
+    button.textContent = 'Отправить';
+  });
+});
+
 window.onclick = function(event) {
   const modal = document.getElementById('suggestModal');
   if (event.target === modal) {

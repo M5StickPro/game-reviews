@@ -60,10 +60,12 @@
       <h2>Предложить игру</h2>
       <p>Знаешь игру, про которую стоит написать обзор? Напиши её название ниже.</p>
       
-      <input type="text" id="suggestGameName" placeholder="Название игры" autocomplete="off">
-      <textarea id="suggestReason" placeholder="Почему стоит сделать обзор? (необязательно)"></textarea>
-      
-      <button class="submit-suggest-btn" onclick="sendSuggestion()">Отправить в Telegram</button>
+      <form id="suggestForm">
+        <input type="text" name="game" id="suggestGameName" placeholder="Название игры" required autocomplete="off">
+        <textarea name="reason" id="suggestReason" placeholder="Почему стоит сделать обзор? (необязательно)"></textarea>
+        <button type="submit" class="submit-suggest-btn">Отправить</button>
+      </form>
+      <div id="formStatus" style="margin-top: 10px; text-align: center; font-weight: bold;"></div>
     </div>
   </div>
 

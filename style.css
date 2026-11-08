@@ -123,7 +123,6 @@ body::after {
   border-color: var(--accent-orange);
 }
 
-/* Кнопка Предложить игру */
 .suggest-btn {
   margin-top: 20px;
   padding: 10px 24px;
@@ -141,7 +140,6 @@ body::after {
   box-shadow: 0 5px 15px rgba(255, 107, 0, 0.4);
 }
 
-/* Модальное окно */
 .modal {
   display: none;
   position: fixed;
