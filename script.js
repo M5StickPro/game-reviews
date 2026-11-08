@@ -1,7 +1,7 @@
 const projectId = 'lvvctfr4';
 const dataset = 'production';
 
-const sanityToken = 'skLQBsy1xslhvno6mISoveIUSyUUsrAgQ3pDN79Gzw1B5z7YOUPJHum204OQBIPY65QaQJS1TcGv9Uzm0MJoMnQVJVi4QuX5BaQzmjlStdtwmktUt9WhOARpsIlL8D4YIfkGgo7exF9I5cvLbHmUlod9XrppmQO8tSSEk2stxdagW1gH147F';
+const sanityToken = 'skiKZkRUddLt0IagcVz19ghpXYueXw7KTbuXBd7D2W5lbnnjYKpFvHR30DI7tauZYjKW9FajbxT4sgkfcZWSvDHXqHcJ9eiMEDA3O9mipwdsHcwcni21qO3hnvgpN48ZqvtZi9Th7dXLT0sni3M7WT3QbU50CFggUguIbEsaantdqijwPYjE';
 
 const query = encodeURIComponent(`*[_type == "post"]{
   title,
@@ -79,7 +79,6 @@ function filterReviews() {
   let filtered = allReviews;
 
   if (currentGenre !== 'all') {
-    // Обновили фильтрацию: проверяем, есть ли выбранный жанр в массиве жанров игры
     filtered = filtered.filter(r => 
       r.genre && Array.isArray(r.genre) && r.genre.includes(currentGenre)
     );
