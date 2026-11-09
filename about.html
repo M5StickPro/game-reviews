@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Обо мне — GameReviews</title>
+  <meta name="description" content="Портфолио разработчика сайта GameReviews. Опыт разработки около 2 лет.">
+  <link rel="icon" type="image/png" href="icon.png">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .about-container { max-width: 800px; margin: 40px auto; padding: 30px; background: var(--card-bg); backdrop-filter: blur(16px); border-radius: 24px; border: 1px solid var(--border-glass); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+    .about-container h1 { margin-bottom: 20px; font-size: 2.2rem; color: var(--text-main); }
+    .about-container h2 { margin-top: 25px; margin-bottom: 10px; font-size: 1.5rem; color: var(--accent-orange); }
+    .about-text { line-height: 1.8; font-size: 1.1rem; color: var(--text-muted); margin-bottom: 15px; }
+    .about-list { list-style: none; padding-left: 0; margin-bottom: 20px; }
+    .about-list li { margin-bottom: 10px; font-size: 1.1rem; color: var(--text-main); display: flex; align-items: center; }
+    .about-list li::before { content: "▹"; color: var(--accent-orange); margin-right: 10px; font-weight: bold; }
+    .back-btn { display: inline-block; margin-bottom: 20px; color: var(--accent-orange); text-decoration: none; font-weight: bold; transition: 0.3s;}
+    .back-btn:hover { text-decoration: underline; color: var(--text-main); }
+    @media (max-width: 768px) {
+      .about-container { margin: 20px 15px; padding: 20px; }
+      .about-container h1 { font-size: 1.6rem; }
+      .about-text { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <h1>GameReviews</h1>
+  </header>
+
+  <main>
+    <div class="about-container">
+      <a href="index.html" class="back-btn">← На главную</a>
+      <h1>Обо мне</h1>
+      
+      <p class="about-text">
+        Привет! Меня зовут <strong>M5StickPro</strong>, и я занимаюсь веб-разработкой уже около <strong>2 лет</strong>.
+      </p>
+      
+      <p class="about-text">
+        Этот сайт — один из моих проектов. Я сам спроектировал его, написал код (HTML, CSS, JavaScript), 
+        подключил систему управления контентом (Sanity) и выложил в интернет. 
+        Я не просто копирую чужие шаблоны, а понимаю, как всё работает изнутри.
+      </p>
+
+      <h2>Что я умею:</h2>
+      <ul class="about-list">
+        <li>Верстать адаптивные сайты (HTML5, CSS3)</li>
+        <li>Писать интерактивные скрипты на JavaScript</li>
+        <li>Работать с Headless CMS (Sanity)</li>
+        <li>Настраивать домены и хостинг (GitHub Pages)</li>
+        <li>Использовать Git для контроля версий</li>
+      </ul>
+
+      <h2>Этот проект</h2>
+      <p class="about-text">
+        GameReviews — это мой игровой блог, где я делюсь честными обзорами на игры. 
+        Сайт постоянно развивается: я добавляю новые фишки, улучшаю дизайн и пишу новые статьи.
+      </p>
+      
+      <p class="about-text" style="margin-top: 30px; font-size: 0.9rem; text-align: center;">
+        Связаться со мной можно через форму «Предложить игру» на главной странице.
+      </p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 GameReviews</p>
+  </footer>
+</body>
+</html>

@@ -80,8 +80,8 @@ if (!slug) {
               ${bodyHtml}
             </div>
 
-            <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-glass); text-align: center; color: var(--text-muted);">
-              Made by <strong style="color: var(--accent-orange);">M5StickPro</strong>
+            <div class="author-footer">
+              Made by <a href="about.html" style="color: var(--accent-orange); text-decoration: none; font-weight: bold;">M5StickPro</a>
             </div>
 
             <div class="related-posts" id="related-posts"></div>

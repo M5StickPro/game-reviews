@@ -6,6 +6,7 @@
   <title>GameReviews — Честные обзоры игр</title>
   <meta name="description" content="Честные обзоры игр. Оценки, скриншоты и личное мнение.">
   <link rel="icon" type="image/png" href="icon.png">
+  <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -28,13 +29,13 @@
       <input type="text" id="searchInput" placeholder="Поиск игры..." autocomplete="off">
     </div>
 
-    <div class="filters" id="filters-main">
-    </div>
-    
-    <div class="filters-more-container" id="filters-more">
-    </div>
+    <div class="filters" id="filters-main"></div>
+    <div class="filters-more-container" id="filters-more"></div>
 
-    <button class="suggest-btn" onclick="openSuggestModal()">Предложить игру</button>
+    <div style="margin-top: 20px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+      <button class="suggest-btn" style="margin-top: 0;" onclick="openSuggestModal()">Предложить игру</button>
+      <a href="about.html" class="suggest-btn" style="margin-top: 0; text-decoration: none; display: inline-flex; align-items: center; background: transparent; border: 1px solid var(--border-glass); color: var(--text-main);">Обо мне</a>
+    </div>
   </header>
 
   <main>
@@ -67,5 +68,14 @@
   </div>
 
   <script src="script.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+          .then(reg => console.log('Service Worker зарегистрирован!', reg))
+          .catch(err => console.error('Ошибка регистрации SW:', err));
+      });
+    }
+  </script>
 </body>
 </html>
